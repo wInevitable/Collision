@@ -41,7 +41,7 @@
   };
   
   Asteroid.prototype.move = function(){  
-    this.posX = this.posX + this.velX ;
+    this.posX = this.posX + this.velX;
     this.posY = this.posY + this.velY;
   };
   
