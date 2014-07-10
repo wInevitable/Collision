@@ -1,53 +1,61 @@
 "use strict";
 
-(function(root)
-{
+(function(root) {
    var StarTrek = root.StarTrek = (root.StarTrek || {});
-   
-   var Ship = StarTrek.Ship = function(pos, vel) {
-     StarTrek.MovingObject.call(this, pos, vel);
-     this.radius = Ship.RADIUS = 30;
+
+   function randomColor() {
+     //generate a random hex code
+     return '#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);
+   }
+
+   var Ship = StarTrek.Ship = function(options) {
+     options.radius = Ship.RADIUS;
+     options.vel = options.vel || [0, 0];
+     options.color = options.color || randomColor();
+
+     StarTrek.MovingObject.call(this, options);
    };
-    
-   Ship.inherits(StarTrek.MovingObject);
-  
+
+   StarTrek.Utilities.inherits(Ship, StarTrek.MovingObject);
+
    Ship.COLOR = 'Black';
-   Ship.RADIUS = 30;
-  
-  
-   Ship.prototype.draw = function(ctx){
-     ctx.fillStyle = Ship.COLOR;
-     ctx.beginPath();
-  
-     ctx.arc(
-       this.posX,
-       this.posY,
-       Ship.RADIUS,
-       0,
-       2 * Math.PI,
-       false
-     );
-  
-     ctx.fill();
-   };
-  
-   Ship.prototype.move = function(){
-     this.posX = this.posX + this.velX;
-     this.posY = this.posY + this.velY;
-   }
-  
+   Ship.RADIUS = 15;
+
    Ship.prototype.power = function(impulse){
-     this.velX = impulse[0];
-     this.velY = impulse[1];
-   }
-   
-   Ship.prototype.fireBullets = function(){
-     var ship = this;
-     if (ship.velX !== 0 || ship.velY !== 0 ){
-       return new StarTrek.Bullet([ship.posX, ship.posY], [ship.velX * 10, ship.velY * 10]);
-     } else {
-       return false;
+     this.vel[0] += impulse[0];
+     this.vel[1] += impulse[1];
+   };
+
+   Ship.prototype.relocate = function() {
+     this.pos = this.game.randomPosition();
+     this.vel = [0, 0];
+   };
+
+   Ship.prototype.fireBullet = function() {
+     var norm = StarTrek.Utilities.norm(this.vel);
+
+     if (norm == 0) {
+       return
      }
-   }
-  
+     else {
+       var relVel = StarTrek.Utilities.scale(
+         StarTrek.Utilities.dir(this.vel),
+         StarTrek.Bullet.SPEED
+       );
+
+       var bulletVel = [
+         relVel[0] + this.vel[0], relVel[1] + this.vel[1]
+       ];
+
+       var bullet = new StarTrek.Bullet({
+         pos: this.pos,
+         vel: bulletVel,
+         color: this.color.
+         game: this.game
+       });
+
+       this.game.add(bullet);
+     }
+   };
+
 })(this);

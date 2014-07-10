@@ -2,47 +2,34 @@
 
 (function (root){
   var StarTrek = root.StarTrek = (root.StarTrek || {});
-  
-  
-  var Asteroid = StarTrek.Asteroid = function(pos, vel) {
-    StarTrek.MovingObject.call(this, pos, vel);
-    this.radius = Asteroid.RADIUS;
+
+  var Asteroid = StarTrek.Asteroid = function(options) {
+    options.radius = Asteroid.RADIUS;
+    options.color = Asteroid.COLOR;
+
+    StarTrek.MovingObject.call(this, options);
   };
-    
-  Asteroid.inherits(StarTrek.MovingObject);
-  
+
   Asteroid.COLOR = 'red';
   Asteroid.RADIUS = 25;
-  
-  Asteroid.randomAsteroid = function(dimX, dimY){
-    var randomPos = [Math.random() * dimX, Math.random() * dimY];
-    var randomVel = randomVec();
-    return new Asteroid(randomPos, randomVel);
+  Asteroid.SPEED = 4;
+
+  Asteroid.randomAsteroid = function(game){
+    return new Asteroid({
+      pos: game.randomPos(),
+      vel: Asteroids.Utilities.ranVec(Asteroid.SPEED),
+      game: game
+    });
   };
-  
-  var randomVec = function(){
-    return [Math.random() *  Asteroid.RADIUS, Math.random() * Asteroid.RADIUS];
+
+  StarTrek.Utilities.inherits(Asteroid, StarTrek.MovingObject);
+
+  Asterod.prototype.collideWith = function(otherObject) {
+    if (otherObject.constructor !== StarTrek.Ship) {
+      return;
+    }
+
+    otherObject.relocate();
   };
-  
-  Asteroid.prototype.draw = function(ctx){
-    ctx.fillStyle = Asteroid.COLOR;
-    ctx.beginPath();
-    
-    ctx.arc(
-      this.posX,
-      this.posY,
-      Asteroid.RADIUS,
-      0,
-      2 * Math.PI,
-      false
-    );
-    
-    ctx.fill();
-  };
-  
-  Asteroid.prototype.move = function(){  
-    this.posX = this.posX + this.velX;
-    this.posY = this.posY + this.velY;
-  };
-  
+
 })(this);
