@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Star Trek</title>
+  <title>Star Trek: A Collision on the Frontier</title>
+
+  <script src="vendor/jquery.js"></script>
+  <script src="vendor/keymaster.js"></script>
+
+  <script src="lib/utilities.js"></script>
+  <script src="lib/moving_object.js"></script>
+  <script src="lib/asteroid.js"></script>
+  <script src="lib/ship.js"></script>
+  <script src="lib/bullet.js"></script>
+  <script src="lib/game.js"></script>
+  <script src="lib/game_view.js"></script>
 </head>
 <body>
-    <canvas width="500" height="500"></canvas>
-    
-    <script src="keymaster.js"></script>
-    <script src="helper.js"></script>
-    <script src="MovingObject.js"></script>
-    <script src="bullet.js"></script>
-    <script src="asteroid.js"></script>
-    <script src="ship.js"></script>
-    <script src="game.js"></script>
-    
-    <script>
-      var canvas = document.getElementsByTagName("canvas")[0];
-      new StarTrek.Game(canvas).start();
-    </script>
+  <script>
+    $(function() {
+      var canvas = $("<canvas width='" + StarTrek.Game.DIM_X +
+                    "' height='" + StarTrek.Game.DIM_Y + "'></canvas>");
+      $('body').append(canvas);
+
+      var ctx = canvas.get(0).getContext("2d");
+      var game = StarTrek.Game.new();
+      new StarTrek.GameView(game, ctx).start();
+    });
+  </script>
 </body>
 </html>
