@@ -1,4 +1,4 @@
-# Collision <sub>(formerly StarTrek: A Collision on the Frontier)</sub>
+# Collision <sup><sub>(formerly StarTrek: A Collision on the Frontier)</sub></sup>
 =========
 
 A Javscript implementation of the classic Arcade hit, Asteroids. After downloading the directory, run index.html and play one of the all-time greats in the convenience of your own home.
