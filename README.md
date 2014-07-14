@@ -3,7 +3,7 @@
 
 A Javscript implementation of the classic Arcade hit, **Asteroids**. After downloading the directory, run *index.html* and play one of the all-time greats in the convenience of your own home.
 
-Use the **'w, s, a, and d'** keys to move your ship. **'Space'** fires lasers in the direction of your current trajectory. Knock out as many Asteroids as you can before they collide with your BattleCruiser.
+Use the '**w, s, a, and d**' keys to move your ship. '**Space**' fires lasers in the direction of your current trajectory. Knock out as many Asteroids as you can before they collide with your BattleCruiser.
 
 TODO
 =========
