@@ -17,6 +17,14 @@
 </head>
 <body>
   <script>
+    $(document).ready(function() {
+      $('body').keypress(function(event) {
+        if ([32, 65, 68, 83, 87].indexOf(event.keyCode) > -1) {
+          event.preventDefault();
+        }
+      });
+    });
+
     $(function() {
       var imagePreloader = new Preloader.ImagePreloader({
         background: './lib/images/lightspeed.jpg',
