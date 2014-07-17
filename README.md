@@ -8,7 +8,7 @@ Use the '**w, s, a, and d**' keys to move your ship. '**Space**' fires lasers in
 TODO
 =========
 
-- Rotate Ship Image in correlation with Ship trajectory.
+- ~~Rotate Ship Image in correlation with Ship trajectory.~~
 - Link images to object radius size.
 - Implement 'Game Over' functionality upon collision between Ship and Asteroid. Also, add a replay button.
 - Create a scoring system which updates live.
